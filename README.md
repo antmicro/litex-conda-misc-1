@@ -83,11 +83,12 @@ sudo apt-get install wget git
 sudo apt-get install coreutils autoconf automake build-essential gperf libftdi-dev libudev-dev libudev1 libusb-1.0-0-dev libusb-dev texinfo libtool pkg-config
 
 git clone https://github.com/litex-hub/litex-conda-misc.git
-litex-conda-misc/conda-get.sh
+cd litex-conda-misc
+litex-conda-ci/conda-get.sh
 
-# Adapted from .travis/common.sh
+# Adapted from litex-conda-ci/.travis/common.sh
 get_built_package() {
-   ./conda-env.sh render --output "$@" 2>/dev/null | grep conda-bld | grep tar.bz2 | tail -n 1 | sed -e's/-[0-9]\+\.tar/*.tar/' -e's/-git//'
+   ./litex-conda-ci/conda-env.sh render --output "$@" 2>/dev/null | grep conda-bld | grep tar.bz2 | tail -n 1 | sed -e's/-[0-9]\+\.tar/*.tar/' -e's/-git//'
 }
 
 # Anchor the build date/time, so we have predictable versions and filenames
@@ -99,7 +100,7 @@ get_built_package() {
 # export DATE_STR="$(date -u +%Y%m%d_%H%M%S)"
 #
 # Or lock to date/time of the last commit on git, as Travis CI config does
-# (see .travis/common.sh)
+# (see litex-conda-ci/.travis/common.sh)
 #
 export DATE_TS="$(git log --format=%ct -n1)"
 export DATE_NUM="$(date --date=@${DATE_TS} -u +%Y%m%d%H%M%S)"
@@ -112,10 +113,10 @@ export PACKAGE TOOLCHAIN_ARCH
 cd litex-conda-misc
 
 for PACKAGE in binutils gcc/nostdc gcc/newlib; do
-  ./conda-env.sh build --check "${PACKAGE}"   # Downloads and caches stuff
-  ./conda-env.sh build         "${PACKAGE}"   # Actually build package
+  ./litex-conda-ci/conda-env.sh build --check "${PACKAGE}"   # Downloads and caches stuff
+  ./litex-conda-ci/conda-env.sh build         "${PACKAGE}"   # Actually build package
   CONDA_OUT="$(get_built_package ${PACKAGE})" # Calculate output package
-  ./conda-env.sh install       "${CONDA_OUT}"
+  ./litex-conda-ci/conda-env.sh install       "${CONDA_OUT}"
 done
 ```
 
