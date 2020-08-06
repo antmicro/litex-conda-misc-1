@@ -1,0 +1,3 @@
+[submodule "litex-conda-ci"]
+	path = .travis
+	url = ../litex-conda-ci.git
