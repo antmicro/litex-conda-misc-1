@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -x
+set -e
 
 # Copy the recipe from the Renode's master
 git clone --depth 1 https://github.com/renode/renode.git
