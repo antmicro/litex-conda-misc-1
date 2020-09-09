@@ -2,8 +2,6 @@
 
 set -x
 
-cd "$PACKAGE"
-
 # Copy the recipe from the Renode's master
 git clone --depth 1 https://github.com/renode/renode.git
 mv renode/tools/packaging/conda/* .
