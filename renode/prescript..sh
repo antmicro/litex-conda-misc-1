@@ -25,9 +25,13 @@ patch-func meta.yaml meta_add_travis_patches.patch
 patch-func meta.yaml meta_headless.patch
 patch-func build.sh build_without_gui.patch
 patch-func bld.bat build_without_gui_win.patch
+patch-func activate.sh activate-sh_find_only_once.patch
 
 # Clean the recipe
 rm meta_add_travis_patches.patch
 rm meta_headless.patch
 rm build_without_gui.patch
+rm build_without_gui_win.patch
+rm activate-sh_find_only_once.patch
+
 rm prescript..sh
