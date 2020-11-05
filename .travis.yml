@@ -4,6 +4,10 @@ addons:
   homebrew:
     packages:
     update: false
+  apt:
+    update: true
+    packages:
+    - build-essential
 
 stages:
   - name: "No dependencies" # Doesn't depend on anything apart from upstream packages
