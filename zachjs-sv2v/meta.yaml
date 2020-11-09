@@ -18,7 +18,10 @@ build:
 
 requirements:
   build:
+    - {{ compiler('cxx') }}
     - stack
+    - zipp ==3.3.1
+  host:
     - gmp
 
 test:
