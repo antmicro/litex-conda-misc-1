@@ -9,15 +9,9 @@ NC='\033[0m' # No Color
 
 SPACER="echo -e ${GRAY} - ${NC}"
 
-export -f travis_nanoseconds
-export -f travis_fold
-export -f travis_time_start
-export -f travis_time_finish
+CI_MAX_TIME=50
 
-TRAVIS_MAX_TIME=50
-
-# Override default travis_wait to pipe the output
-travis_wait() {
+ci_wait() {
 	local timeout="${1}"
 
 	if [[ "${timeout}" =~ ^[0-9]+$ ]]; then
@@ -27,12 +21,12 @@ travis_wait() {
 	fi
 
 	local cmd=("${@}")
-	local log_file="travis_wait_${$}.log"
+	local log_file="ci_wait_${$}.log"
 
 	"${cmd[@]}" &
 	local cmd_pid="${!}"
 
-	travis_jigger "${!}" "${timeout}" "${cmd[@]}" &
+	ci_jigger "${!}" "${timeout}" "${cmd[@]}" &
 	local jigger_pid="${!}"
 	local result
 
@@ -53,8 +47,7 @@ travis_wait() {
 	return "${result}"
 }
 
-# Override default travis_jigger to print invisible character to keep build alive
-travis_jigger() {
+ci_jigger() {
 	local cmd_pid="${1}"
 	shift
 	local timeout="${1}"
@@ -74,7 +67,7 @@ travis_jigger() {
 	kill -9 "${cmd_pid}"
 }
 
-if [ $TRAVIS_OS_NAME = 'osx' ]; then
+if [ $OS_NAME = 'osx' ]; then
     DATE_SWITCH="-r "
 else
     DATE_SWITCH="--date=@"
@@ -88,28 +81,19 @@ if [ -z "$DATE_STR" ]; then
 fi
 
 function start_section() {
-	travis_fold start "$1"
-	travis_time_start
 	echo -e "${PURPLE}${PACKAGE}${NC}: - $2${NC}"
 	echo -e "${GRAY}-------------------------------------------------------------------${NC}"
 }
 
 function end_section() {
 	echo -e "${GRAY}-------------------------------------------------------------------${NC}"
-	travis_time_finish
-	travis_fold end "$1"
 }
 
-# Disable this warning;
-# xxxx/conda_build/environ.py:377: UserWarning: The environment variable
-#     'TRAVIS' is being passed through with value 0.  If you are splitting
-#     build and test phases with --no-test, please ensure that this value is
-#     also set similarly at test time.
 export PYTHONWARNINGS=ignore::UserWarning:conda_build.environ
 
 export BASE_PATH="/tmp/really-long-path"
 mkdir -p "$BASE_PATH"
-if [ $TRAVIS_OS_NAME = 'windows' ]; then
+if [ $OS_NAME = 'windows' ]; then
     export CONDA_PATH='/c/tools/miniconda3'
     export PATH=$CONDA_PATH/Scripts/:$CONDA_PATH/:$PATH
 else

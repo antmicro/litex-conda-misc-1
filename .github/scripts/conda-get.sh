@@ -4,7 +4,7 @@ set -x
 set -e
 
 CONDA_PATH=${1:-~/conda}
-if [ $TRAVIS_OS_NAME = 'windows' ]; then
+if [ $OS_NAME = 'windows' ]; then
     if [ ! -d $CONDA_PATH -o ! -z "$CI"  ]; then
         choco install openssl.light
         choco install miniconda3 --params="/AddToPath:1"
@@ -12,7 +12,7 @@ if [ $TRAVIS_OS_NAME = 'windows' ]; then
     export CONDA_PATH='/c/tools/miniconda3'
     export PATH=$CONDA_PATH/bin/:$CONDA_PATH/Scripts/:$PATH
 else
-    if [ $TRAVIS_OS_NAME = 'linux' ]; then
+    if [ $OS_NAME = 'linux' ]; then
         sys_name=Linux
     else
         sys_name=MacOSX
@@ -50,7 +50,7 @@ echo "conda-build==3.20.3" >> $CONDA_PATH/conda-meta/pinned
 conda install -y conda-build==3.20.3
 
 conda install -y conda-verify
-if [ $TRAVIS_OS_NAME != 'windows' ]; then
+if [ $OS_NAME != 'windows' ]; then
     conda install -y ripgrep
 fi
 

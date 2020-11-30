@@ -1,9 +1,6 @@
 #!/bin/bash
 
-source $TRAVIS_BUILD_DIR/.travis/common.sh
-
-# Close the after_failure fold travis has created already.
-travis_fold end after_failure
+source $GITHUB_WORKSPACE/.github/scripts/common.sh
 
 $SPACER
 

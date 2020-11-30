@@ -1,29 +1,29 @@
 #!/bin/bash
 
-source $TRAVIS_BUILD_DIR/.travis/common.sh
+source $GITHUB_WORKSPACE/.github/scripts/common.sh
 set -e
 
 # Getting the conda environment
 start_section "environment.conda" "Setting up basic ${YELLOW}conda environment${NC}"
 
-branch=${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
+branch=${GITHUB_HEAD_REF:-$CI_BRANCH}
 mkdir -p $BASE_PATH
-./.travis/conda-get.sh $CONDA_PATH
+$GITHUB_WORKSPACE/.github/scripts/conda-get.sh $CONDA_PATH
 hash -r
 conda config --set always_yes yes --set changeps1 no
 conda install pexpect
 conda config --add channels litex-hub
-conda config --add channels $(echo $TRAVIS_REPO_SLUG | sed -e's@/.*$@@')
-conda config --add channels litex-hub/label/travis-$branch-$TRAVIS_BUILD_ID
-conda config --add channels $(echo $TRAVIS_REPO_SLUG | sed -e's@/.*$@@')/label/travis-$branch-$TRAVIS_BUILD_ID
+conda config --add channels $(echo $CI_REPO_SLUG | sed -e's@/.*$@@')
+conda config --add channels litex-hub/label/ci-$branch-$GITHUB_RUN_ID
+conda config --add channels $(echo $CI_REPO_SLUG | sed -e's@/.*$@@')/label/ci-$branch-$GITHUB_RUN_ID
 
 if [ x$PACKAGE = x"" ]; then
     echo '$PACKAGE not set, skipping the rest of install script'
     exit 0
 fi
 
-if [ -e $PACKAGE/condarc_$TRAVIS_OS_NAME ]; then
-	export PACKAGE_CONDARC=$PACKAGE/condarc_$TRAVIS_OS_NAME
+if [ -e $PACKAGE/condarc_$OS_NAME ]; then
+	export PACKAGE_CONDARC=$PACKAGE/condarc_$OS_NAME
 elif [ -e $PACKAGE/condarc ]; then
 	export PACKAGE_CONDARC=$PACKAGE/condarc
 fi
@@ -44,7 +44,7 @@ fi
 conda build purge
 #conda clean -s --dry-run
 
-./.travis/conda-meta-extra.sh $PACKAGE
+$GITHUB_WORKSPACE/.github/scripts/conda-meta-extra.sh $PACKAGE
 
 end_section "environment.conda"
 
@@ -74,13 +74,13 @@ end_section "conda.copy"
 $SPACER
 
 start_section "conda.download" "${GREEN}Downloading..${NC}"
-travis_wait conda build --source $CONDA_BUILD_ARGS || true
+ci_wait conda build --source $CONDA_BUILD_ARGS || true
 end_section "conda.download"
 
 if [ -e $PACKAGE/prescript.$TOOLCHAIN_ARCH.sh ]; then
 	start_section "conda.prescript" "${GREEN}Prescript..${NC}"
 	(
-		cd $TRAVIS_BUILD_DIR
+		cd $GITHUB_WORKSPACE
 		$PACKAGE/prescript.$TOOLCHAIN_ARCH.sh
 	)
 	end_section "conda.prescript"

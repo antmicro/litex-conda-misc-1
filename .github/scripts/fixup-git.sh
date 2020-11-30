@@ -1,7 +1,9 @@
 #!/bin/bash
 
-source $TRAVIS_BUILD_DIR/.travis/common.sh
+source $GITHUB_WORKSPACE/.github/scripts/common.sh
 set -e
+
+CI_BRANCH=$GITHUB_HEAD_REF
 
 # Git repo fixup
 start_section "environment.git" "Setting up ${YELLOW}git checkout${NC}"
@@ -13,9 +15,9 @@ git submodule foreach git submodule update --recursive --init
 $SPACER
 git remote -v
 git branch -v
-git branch -D $TRAVIS_BRANCH
+git branch -D $CI_BRANCH
 CURRENT_GITREV="$(git rev-parse HEAD)"
-git checkout -b $TRAVIS_BRANCH $CURRENT_GITREV
+git checkout -b $CI_BRANCH $CURRENT_GITREV
 git tag -l
 git status -v
 git describe --long
