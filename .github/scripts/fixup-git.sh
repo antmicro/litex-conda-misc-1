@@ -17,7 +17,8 @@ git remote -v
 git branch -v
 #git branch -D $CI_BRANCH
 CURRENT_GITREV="$(git rev-parse HEAD)"
-git checkout -b $CI_BRANCH $CURRENT_GITREV
+#git checkout -b $CI_BRANCH $CURRENT_GITREV
+git reset $CURRENT_GITREV
 git tag -l
 git status -v
 git describe --long
