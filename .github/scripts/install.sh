@@ -6,7 +6,7 @@ set -e
 # Getting the conda environment
 start_section "environment.conda" "Setting up basic ${YELLOW}conda environment${NC}"
 
-branch=${GITHUB_HEAD_REF:-$CI_BRANCH}
+branch="$(git rev-parse --abbrev-ref HEAD)"
 CI_REPO_SLUG="$(git rev-parse --abbrev-ref --symbolic-full-name @{u})"
 mkdir -p $BASE_PATH
 $GITHUB_WORKSPACE/.github/scripts/conda-get.sh $CONDA_PATH
