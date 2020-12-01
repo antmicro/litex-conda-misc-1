@@ -15,7 +15,7 @@ git submodule foreach git submodule update --recursive --init
 $SPACER
 git remote -v
 git branch -v
-git branch -D $CI_BRANCH
+#git branch -D $CI_BRANCH
 CURRENT_GITREV="$(git rev-parse HEAD)"
 git checkout -b $CI_BRANCH $CURRENT_GITREV
 git tag -l
