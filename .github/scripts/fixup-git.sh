@@ -3,7 +3,7 @@
 source $GITHUB_WORKSPACE/.github/scripts/common.sh
 set -e
 
-CI_BRANCH=$GITHUB_HEAD_REF
+CI_BRANCH=${GITHUB_REF##*/}
 
 # Git repo fixup
 start_section "environment.git" "Setting up ${YELLOW}git checkout${NC}"
