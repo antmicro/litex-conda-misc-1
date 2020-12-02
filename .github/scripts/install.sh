@@ -14,12 +14,12 @@ hash -r
 conda config --set always_yes yes --set changeps1 no
 conda install pexpect
 conda config --add channels litex-hub
-echo "Add channel $(echo $CI_REPO_SLUG | sed -e's@/.*$@@')"
-conda config --add channels $(echo $CI_REPO_SLUG | sed -e's@/.*$@@')
+#echo "Add channel $(echo $CI_REPO_SLUG | sed -e's@/.*$@@')"
+#conda config --add channels $(echo $CI_REPO_SLUG | sed -e's@/.*$@@')
 echo "Add channel litex-hub/label/ci-$branch-$GITHUB_RUN_ID"
 conda config --add channels litex-hub/label/ci-$branch-$GITHUB_RUN_ID
-echo "Add channel $(echo $CI_REPO_SLUG | sed -e's@/.*$@@')/label/ci-$branch-$GITHUB_RUN_ID"
-conda config --add channels $(echo $CI_REPO_SLUG | sed -e's@/.*$@@')/label/ci-$branch-$GITHUB_RUN_ID
+#echo "Add channel $(echo $CI_REPO_SLUG | sed -e's@/.*$@@')/label/ci-$branch-$GITHUB_RUN_ID"
+#conda config --add channels $(echo $CI_REPO_SLUG | sed -e's@/.*$@@')/label/ci-$branch-$GITHUB_RUN_ID
 
 if [ x$PACKAGE = x"" ]; then
     echo '$PACKAGE not set, skipping the rest of install script'
