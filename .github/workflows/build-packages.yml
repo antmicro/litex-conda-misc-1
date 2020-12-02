@@ -29,11 +29,11 @@ jobs:
         OS_NAME: ${{ matrix.os-name }}
       run: |
         source .github/scripts/common.sh
-        .github/scripts/fixup-git.sh
-        .github/scripts/download_sdk.sh
+        bash .github/scripts/fixup-git.sh
+        bash .github/scripts/download_sdk.sh
         source .github/scripts/common.sh
-        .github/scripts/install.sh
-        .github/scripts/script.sh
+        bash .github/scripts/install.sh
+        bash .github/scripts/script.sh
     - name: on_success
       env:
         PACKAGE: ${{ matrix.package }}
