@@ -7,19 +7,22 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - {package: "dtc", os: "ubuntu-16.04", os-name: "linux"}
-          - {package: "dtc", os: "macos-latest", os-name: "osx"}
-          - {package: "wishbone-tool", os: "ubuntu-16.04", os-name: "linux"}
-          - {package: "wishbone-tool", os: "macos-latest", os-name: "osx"}
-          - {package: "wishbone-tool", os: "windows-latest", os-name: "windows"}
-          - {package: "sigrok-cli", os: "ubuntu-16.04", os-name: "linux"}
-          - {package: "sigrok-cli", os: "macos-latest", os-name: "osx"}
-          - {package: "renode", os: "ubuntu-16.04", os-name: "linux"}
-          - {package: "renode", os: "macos-latest", os-name: "osx"}
-          - {package: "renode", os: "windows-latest", os-name: "windows"}
-          - {package: "capnproto", os: "ubuntu-16.04", os-name: "linux"}
-          - {package: "zachjs-sv2v", os: "ubuntu-16.04", os-name: "linux"}
-          - {package: "capnproto-java", os: "ubuntu-16.04", os-name: "linux"}
+          - {package: "dtc", os: "ubuntu-16.04", os-name: "linux", shell: "bash"}
+          - {package: "dtc", os: "macos-latest", os-name: "osx", shell: "bash"}
+          - {package: "wishbone-tool", os: "ubuntu-16.04", os-name: "linux", shell: "bash"}
+          - {package: "wishbone-tool", os: "macos-latest", os-name: "osx", shell: "bash"}
+          - {package: "wishbone-tool", os: "windows-latest", os-name: "windows", shell: "msys2"}
+          - {package: "sigrok-cli", os: "ubuntu-16.04", os-name: "linux", shell: "bash"}
+          - {package: "sigrok-cli", os: "macos-latest", os-name: "osx", shell: "bash"}
+          - {package: "renode", os: "ubuntu-16.04", os-name: "linux", shell: "bash"}
+          - {package: "renode", os: "macos-latest", os-name: "osx", shell: "bash"}
+          - {package: "renode", os: "windows-latest", os-name: "windows", shell: "msys2"}
+          - {package: "capnproto", os: "ubuntu-16.04", os-name: "linux", shell: "bash"}
+          - {package: "zachjs-sv2v", os: "ubuntu-16.04", os-name: "linux", shell: "bash"}
+          - {package: "capnproto-java", os: "ubuntu-16.04", os-name: "linux", shell: "bash"}
+    defaults:
+      run:
+        shell: ${{ matrix.shell }} {0}
     steps:
     - name: Checkout workspace
       uses: actions/checkout@v2
