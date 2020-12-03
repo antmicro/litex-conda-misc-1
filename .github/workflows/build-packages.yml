@@ -37,6 +37,8 @@ jobs:
         PACKAGE: ${{ matrix.package }}
         OS_NAME: ${{ matrix.os-name }}
       run: |
+        unset TMP
+        unset TEMP
         source .github/scripts/common.sh
         bash .github/scripts/fixup-git.sh
         bash .github/scripts/download_sdk.sh
