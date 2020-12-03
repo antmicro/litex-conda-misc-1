@@ -21,6 +21,10 @@ jobs:
           - {package: "zachjs-sv2v", os: "ubuntu-16.04", os-name: "linux"}
           - {package: "capnproto-java", os: "ubuntu-16.04", os-name: "linux"}
     steps:
+    - name: enable MSYS2
+      if: matrix.os-name == 'windows'
+      run: |
+        set PATH="%PATH%;C:\msys64"
     - name: Checkout workspace
       uses: actions/checkout@v2
     - name: build
