@@ -40,15 +40,14 @@ jobs:
         path-type: minimal
         install: >-
           git
-          winpty
     - name: build
       env:
         PACKAGE: ${{ matrix.package }}
         OS_NAME: ${{ matrix.os-name }}
       run: |
-        echo $PATH
-        ls /c/ProgramData/Chocolatey/bin/
         export PATH="$PATH:/c/ProgramData/Chocolatey/bin/"
+        export PATH="$PATH:/c/Program Files/Git/usr/bin/"
+        echo $PATH
         unset TMP
         unset TEMP
         source .github/scripts/common.sh
