@@ -30,6 +30,8 @@ jobs:
       if: matrix.os-name == 'windows'
       with:
         path-type: minimal
+        install: >-
+          git
     - name: build
       env:
         PACKAGE: ${{ matrix.package }}
