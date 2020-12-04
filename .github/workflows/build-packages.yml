@@ -28,6 +28,10 @@ jobs:
       if: matrix.os-name == 'windows'
       run: where choco
       shell: cmd
+    - name: Check where's winpty.exe
+      if: matrix.os-name == 'windows'
+      run: where winpty
+      shell: cmd
     - name: Checkout workspace
       uses: actions/checkout@v2
     - uses: msys2/setup-msys2@v2
