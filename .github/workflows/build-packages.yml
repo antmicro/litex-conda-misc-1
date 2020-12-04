@@ -41,6 +41,9 @@ jobs:
         PACKAGE: ${{ matrix.package }}
         OS_NAME: ${{ matrix.os-name }}
       run: |
+        echo $PATH
+        ls /c/ProgramData/Chocolatey/bin/
+        export PATH="$PATH:/c/ProgramData/Chocolatey/bin/"
         source .github/scripts/common.sh
         bash .github/scripts/fixup-git.sh
         bash .github/scripts/download_sdk.sh
