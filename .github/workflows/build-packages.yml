@@ -30,8 +30,6 @@ jobs:
       if: matrix.os-name == 'windows'
       with:
         path-type: inherit
-        install: >-
-          git
     - name: build
       env:
         PACKAGE: ${{ matrix.package }}
