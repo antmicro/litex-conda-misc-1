@@ -58,6 +58,12 @@ jobs:
         source .github/scripts/common.sh
         bash .github/scripts/install.sh
         bash .github/scripts/script.sh
+    - name: build2
+      env:
+        PACKAGE: ${{ matrix.package }}
+        OS_NAME: ${{ matrix.os-name }}
+      run: |
+        echo $PATH
     - name: on_success
       env:
         PACKAGE: ${{ matrix.package }}
