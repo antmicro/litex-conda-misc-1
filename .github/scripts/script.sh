@@ -26,7 +26,7 @@ if [[ $OS_NAME != 'windows' ]]; then
     fi
 else
     # Work-around: prevent console output being mangled
-    winpty.exe -Xplain conda build $CONDA_BUILD_ARGS | tee /tmp/output.log
+    conda build $CONDA_BUILD_ARGS
 fi
 end_section "conda.build"
 
