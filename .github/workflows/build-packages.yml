@@ -67,12 +67,12 @@ jobs:
     - name: on_success
       env:
         PACKAGE: ${{ matrix.package }}
-      if: steps.build.outcome == 'success'
+      if: success()
       run: |
         source .github/scripts/after_success.sh
     - name: on_failure
       env:
         PACKAGE: ${{ matrix.package }}
-      if: steps.build.outcome == 'failure'
+      if: failure()
       run: |
         source .github/scripts/after_failure.sh
