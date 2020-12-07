@@ -11,12 +11,12 @@ jobs:
           - {package: "dtc", os: "macos-latest", os-name: "osx", shell: "bash"}
           - {package: "wishbone-tool", os: "ubuntu-16.04", os-name: "linux", shell: "bash"}
           - {package: "wishbone-tool", os: "macos-latest", os-name: "osx", shell: "bash"}
-          - {package: "wishbone-tool", os: "windows-latest", os-name: "windows", shell: "msys2"}
+          - {package: "wishbone-tool", os: "windows-latest", os-name: "windows", shell: "msys2 {0}"}
           - {package: "sigrok-cli", os: "ubuntu-16.04", os-name: "linux", shell: "bash"}
           - {package: "sigrok-cli", os: "macos-latest", os-name: "osx", shell: "bash"}
           - {package: "renode", os: "ubuntu-16.04", os-name: "linux", shell: "bash"}
           - {package: "renode", os: "macos-latest", os-name: "osx", shell: "bash"}
-          - {package: "renode", os: "windows-latest", os-name: "windows", shell: "msys2"}
+          - {package: "renode", os: "windows-latest", os-name: "windows", shell: "msys2 {0}"}
           - {package: "capnproto", os: "ubuntu-16.04", os-name: "linux", shell: "bash"}
           - {package: "zachjs-sv2v", os: "ubuntu-16.04", os-name: "linux", shell: "bash"}
           - {package: "capnproto-java", os: "ubuntu-16.04", os-name: "linux", shell: "bash"}
