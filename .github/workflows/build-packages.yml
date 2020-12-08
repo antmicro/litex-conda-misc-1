@@ -45,9 +45,9 @@ jobs:
     - name: Install coreutils
       if: matrix.os-name == 'osx'
       run: brew install coreutils
-    - name: XCode - install dependencies
+    - name: macOS - check /usr/include content
       if: matrix.os-name == 'osx'
-      run: xcode-select --install
+      run: ls /usr/include
     - name: build
       env:
         PACKAGE: ${{ matrix.package }}
