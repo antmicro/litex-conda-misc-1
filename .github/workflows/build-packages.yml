@@ -8,14 +8,14 @@ jobs:
       matrix:
         include:
           - {package: "dtc", os: "ubuntu-16.04", os-name: "linux", shell: "bash"}
-          - {package: "dtc", os: "macos-latest", os-name: "osx", shell: "bash"}
+          - {package: "dtc", os: "macos-10.15", os-name: "osx", shell: "bash"}
           - {package: "wishbone-tool", os: "ubuntu-16.04", os-name: "linux", shell: "bash"}
-          - {package: "wishbone-tool", os: "macos-latest", os-name: "osx", shell: "bash"}
+          - {package: "wishbone-tool", os: "macos-10.15", os-name: "osx", shell: "bash"}
           - {package: "wishbone-tool", os: "windows-latest", os-name: "windows", shell: "bash"}
           - {package: "sigrok-cli", os: "ubuntu-16.04", os-name: "linux", shell: "bash"}
-          - {package: "sigrok-cli", os: "macos-latest", os-name: "osx", shell: "bash"}
+          - {package: "sigrok-cli", os: "macos-10.15", os-name: "osx", shell: "bash"}
           - {package: "renode", os: "ubuntu-16.04", os-name: "linux", shell: "bash"}
-          - {package: "renode", os: "macos-latest", os-name: "osx", shell: "bash"}
+          - {package: "renode", os: "macos-10.15", os-name: "osx", shell: "bash"}
           - {package: "renode", os: "windows-latest", os-name: "windows", shell: "bash"}
           - {package: "capnproto", os: "ubuntu-16.04", os-name: "linux", shell: "bash"}
           - {package: "zachjs-sv2v", os: "ubuntu-16.04", os-name: "linux", shell: "bash"}
@@ -45,9 +45,11 @@ jobs:
     - name: Install coreutils
       if: matrix.os-name == 'osx'
       run: brew install coreutils
-    - name: XCode - install dependencies
+    - name: macOS - install SDK
       if: matrix.os-name == 'osx'
-      run: xcode-select --install
+      run: |
+        ls /Library/Developer/CommandLineTools/Packages/
+        open /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.15.pkg
     - name: build
       env:
         PACKAGE: ${{ matrix.package }}
