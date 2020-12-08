@@ -40,6 +40,9 @@ jobs:
       if: matrix.os-name == 'windows'
       run: echo "C:\msys64" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       shell: powershell
+    - name: Install coreutils
+      if: matrix.os-name == 'osx'
+      run: brew install coreutils
     - name: Checkout workspace
       uses: actions/checkout@v2
     - name: build
