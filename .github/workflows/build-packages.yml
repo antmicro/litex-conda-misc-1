@@ -45,9 +45,9 @@ jobs:
     - name: Install coreutils
       if: matrix.os-name == 'osx'
       run: brew install coreutils
-    - name: macOS - check /usr/include content
+    - name: macOS - set Xcode version in use to 8.3
       if: matrix.os-name == 'osx'
-      run: ls /usr/include
+      run: xcode-select -s "/Applications/Xcode_8.3.app"
     - name: build
       env:
         PACKAGE: ${{ matrix.package }}
