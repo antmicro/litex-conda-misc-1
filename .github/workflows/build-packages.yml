@@ -24,6 +24,8 @@ jobs:
       run:
         shell: ${{ matrix.shell }} {0}
     steps:
+    - name: Checkout workspace
+      uses: actions/checkout@v2
     - name: Check where's Chocolatey
       if: matrix.os-name == 'windows'
       run: where choco
@@ -46,8 +48,6 @@ jobs:
     - name: XCode - install dependencies
       if: matrix.os-name == 'osx'
       run: xcode-select --install
-    - name: Checkout workspace
-      uses: actions/checkout@v2
     - name: build
       env:
         PACKAGE: ${{ matrix.package }}
