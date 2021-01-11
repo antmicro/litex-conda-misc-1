@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: 'true'
-      - uses: litex-hub/litex-conda-ci@master
+      - uses: antmicro/litex-conda-ci@test-conda-config-remote
 
   #2
   dtc-osx:
